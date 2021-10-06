@@ -13,7 +13,7 @@ type Pelanggan struct {
 	Telepon       string    `gorm:"type:varchar(200);null" json:"telepon"`
 	Alamat        string    `gorm:"type:varchar(200);null" json:"alamat"`
 
-	Auditable
+	//Auditable
 }
 
 func NewPelanggan(id uuid.UUID, nama_pelanggan, telepon, alamat string) *Pelanggan {
@@ -22,7 +22,7 @@ func NewPelanggan(id uuid.UUID, nama_pelanggan, telepon, alamat string) *Pelangg
 		NamaPelanggan: nama_pelanggan,
 		Telepon:       telepon,
 		Alamat:        alamat,
-		Auditable:     NewAuditable(),
+		//Auditable:     NewAuditable(),
 	}
 }
 
