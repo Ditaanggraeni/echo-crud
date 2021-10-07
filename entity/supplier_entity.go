@@ -12,8 +12,7 @@ type Supplier struct {
 	NamaSupplier string    `gorm:"type:varchar(200);not_null" json:"nama_supplier"`
 	Telepon      string    `gorm:"type:varchar(200);null" json:"telepon"`
 	Alamat       string    `gorm:"type:varchar(200);null" json:"alamat"`
-
-	Auditable
+	//Auditable
 }
 
 func NewSupplier(id uuid.UUID, nama_supplier, telepon, alamat string) *Supplier {
@@ -22,7 +21,7 @@ func NewSupplier(id uuid.UUID, nama_supplier, telepon, alamat string) *Supplier 
 		NamaSupplier: nama_supplier,
 		Telepon:      telepon,
 		Alamat:       alamat,
-		Auditable:    NewAuditable(),
+		//Auditable:    NewAuditable(),
 	}
 }
 

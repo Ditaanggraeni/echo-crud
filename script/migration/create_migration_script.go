@@ -10,8 +10,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"go-penjualan/entity"
-	"go-penjualan/internal/config"
+	"echo-crud/entity"
+	"echo-crud/internal/config"
 )
 
 var db *gorm.DB
@@ -41,11 +41,20 @@ func main() {
 	log.Info().Msg("  SupplierModel [" + (&entity.Supplier{}).TableName() + "]")
 	db.AutoMigrate(&entity.Supplier{})
 
+	log.Info().Msg("  ProdukModel [" + (&entity.Produk{}).TableName() + "]")
+	db.AutoMigrate(&entity.Produk{})
+
 	log.Info().Msg("  PelangganModel [" + (&entity.Pelanggan{}).TableName() + "]")
 	db.AutoMigrate(&entity.Pelanggan{})
 
 	log.Info().Msg("  TransaksiModel [" + (&entity.Transaksi{}).TableName() + "]")
 	db.AutoMigrate(&entity.Transaksi{})
+
+	log.Info().Msg("  TransaksiDetailModel [" + (&entity.TransaksiDetail{}).TableName() + "]")
+	db.AutoMigrate(&entity.TransaksiDetail{})
+
+	log.Info().Msg("  PembayaranModel [" + (&entity.Pembayaran{}).TableName() + "]")
+	db.AutoMigrate(&entity.Pembayaran{})
 
 }
 

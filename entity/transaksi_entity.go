@@ -14,17 +14,17 @@ type Transaksi struct {
 	Total       int64     `gorm:"type:int;null" json:"total"`
 	PelangganID uuid.UUID `sql:"type:uuid REFERENCES pelanggan(id)"`
 	Pelanggan   Pelanggan `gorm:"foreign_key:PelangganID;AssociationForeignKey:id_pelanggan"`
-	Auditable
+	//Auditable
 }
 
-func NewTransaksi(id uuid.UUID, kode_produk, nama_produk string, harga, stok int) *Produk {
-	return &Produk{
-		ID:         id,
-		KodeProduk: kode_produk,
-		NamaProduk: nama_produk,
-		Harga:      int64(harga),
-		Stok:       int64(stok),
-		Auditable:  NewAuditable(),
+func NewTransaksi(id_transaksi uuid.UUID, tanggal, keterangan string, total int, pelanggan_id uuid.UUID) *Transaksi {
+	return &Transaksi{
+		ID:         id_transaksi,
+		Tanggal: tanggal,
+		Keterangan: keterangan,
+		Total:       int64(total),
+		PelangganID: pelanggan_id,
+		//Auditable:  NewAuditable(),
 	}
 }
 
