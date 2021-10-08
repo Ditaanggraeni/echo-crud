@@ -62,7 +62,7 @@ func (repo *PelangganRepository) UpdatePelanggan(ctx context.Context, ent *entit
 	if err := repo.db.
 		WithContext(ctx).
 		Model(&entity.Pelanggan{ID: ent.ID}).
-		Select("name", "kode", "description", "quantity", "price").
+		Select("nama_pelanggan", "telepon", "alamat").
 		Updates(ent).Error; err != nil {
 		return errors.Wrap(err, "[PelangganRepository-Update]")
 	}
