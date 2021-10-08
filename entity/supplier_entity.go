@@ -1,12 +1,12 @@
 package entity
 
-import "github.com/gofrs/uuid"
+import "github.com/google/uuid"
 
 const (
 	SupplierTableName = "supplier"
 )
 
-//ProdukModel is a model for entity.Produk
+//SupplierModel is a model for entity.Supplier
 type Supplier struct {
 	ID           uuid.UUID `gorm:"type:uuid;primary_key" json:"id_supplier"`
 	NamaSupplier string    `gorm:"type:varchar(200);not_null" json:"nama_supplier"`
