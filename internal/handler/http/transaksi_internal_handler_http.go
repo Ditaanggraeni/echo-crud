@@ -105,8 +105,7 @@ func (handler *TransaksiHandler) CreateTransaksi(echoCtx echo.Context) error {
 		uuid.Nil,
 		form.Tanggal,
 		form.Keterangan,
-		int(form.Total),
-		uuid.Nil,
+		form.Total,
 	)
 
 	if err := handler.service.Create(echoCtx.Request().Context(), transaksiEntity); err != nil {
@@ -185,17 +184,17 @@ func (handler *TransaksiHandler) UpdateTransaksi(echoCtx echo.Context) error {
 		return echoCtx.JSON(http.StatusBadRequest, errorResponse)
 	}
 
-	// transaksiEntity := &entity.Transaksi{
-	// 	id,
-	// 	form.Tanggal,
-	// 	form.Keterangan,
-	// 	form.Total,
-	// }
+	transaksiEntity := &entity.Transaksi{
+		id,
+		form.Tanggal,
+		form.Keterangan,
+		form.Total,
+	}
 
-	// if err := handler.service.UpdateTransaksi(echoCtx.Request().Context(), transaksiEntity); err != nil {
-	// 	errorResponse := buildErrorResponse(err, entity.ErrInternalServerError)
-	// 	return echoCtx.JSON(nethttp.StatusInternalServerError, errorResponse)
-	// }
+	if err := handler.service.UpdateTransaksi(echoCtx.Request().Context(), transaksiEntity); err != nil {
+		errorResponse := buildErrorResponse(err, entity.ErrInternalServerError)
+		return echoCtx.JSON(nethttp.StatusInternalServerError, errorResponse)
+	}
 
 	var res = entity.NewResponse(nethttp.StatusOK, "Request processed successfully.", nil)
 	return echoCtx.JSON(res.Status, res)
