@@ -41,8 +41,9 @@ func main() {
 	supplierHandler := buildSupplierHandler(db)
 	transaksiHandler := buildTransaksiHandler(db)
 	pelangganHandler := buildPelangganHandler(db)
+	produkHandler := buildProdukHandler(db)
 
-	engine := http.NewGinEngine(supplierHandler, transaksiHandler, pelangganHandler, cfg.InternalConfig.Username, cfg.InternalConfig.Password)
+	engine := http.NewGinEngine(supplierHandler, transaksiHandler, pelangganHandler, produkHandler, cfg.InternalConfig.Username, cfg.InternalConfig.Password)
 
 	server := &nethttp.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.Port),
@@ -121,4 +122,10 @@ func buildPelangganHandler(db *gorm.DB) *http.PelangganHandler {
 	repo := repository.NewPelangganRepository(db)
 	pelangganService := service.NewPelangganService(repo)
 	return http.NewPelangganHandler(pelangganService)
+}
+
+func buildProsukHandler(db *gorm.DB) *http.ProsukHandler {
+	repo := repository.NewProsukRepository(db)
+	prosukService := service.NewProsukService(repo)
+	return http.NewProsukHandler(prosukService)
 }

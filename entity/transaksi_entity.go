@@ -1,7 +1,8 @@
 package entity
 
-import "github.com/gofrs/uuid"
-
+import (
+	"github.com/google/uuid"
+)
 const (
 	TransaksiTableName = "transaksi"
 )
@@ -12,18 +13,16 @@ type Transaksi struct {
 	Tanggal     string    `gorm:"type:date;null" json:"tanggal"`
 	Keterangan  string    `gorm:"type:text;null" json:"keterangan"`
 	Total       int64     `gorm:"type:int;null" json:"total"`
-	PelangganID uuid.UUID `sql:"type:uuid REFERENCES pelanggan(id)"`
-	Pelanggan   Pelanggan `gorm:"foreign_key:PelangganID;AssociationForeignKey:id_pelanggan"`
 	//Auditable
 }
 
-func NewTransaksi(id_transaksi uuid.UUID, tanggal, keterangan string, total int, pelanggan_id uuid.UUID) *Transaksi {
+
+func NewTransaksi(id_transaksi uuid.UUID, tanggal, keterangan string, total int) *Transaksi {
 	return &Transaksi{
 		ID:         id_transaksi,
 		Tanggal: tanggal,
 		Keterangan: keterangan,
 		Total:       int64(total),
-		PelangganID: pelanggan_id,
 		//Auditable:  NewAuditable(),
 	}
 }

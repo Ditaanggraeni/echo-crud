@@ -29,7 +29,7 @@ type PelangganUseCase interface {
 	Create(ctx context.Context, pelanggan *entity.Pelanggan) error
 	GetListPelanggan(ctx context.Context, limit, offset string) ([]*entity.Pelanggan, error)
 	GetDetailPelanggan(ctx context.Context, ID uuid.UUID) (*entity.Pelanggan, error)
-	UpdatePelanggan(ctx context.Context, barang *entity.Pelanggan) error
+	UpdatePelanggan(ctx context.Context, pelanggan *entity.Pelanggan) error
 	DeletePelanggan(ctx context.Context, ID uuid.UUID) error
 }
 
@@ -37,7 +37,7 @@ type PelangganRepository interface {
 	Insert(ctx context.Context, pelanggan *entity.Pelanggan) error
 	GetListPelanggan(ctx context.Context, limit, offset string) ([]*entity.Pelanggan, error)
 	GetDetailPelanggan(ctx context.Context, ID uuid.UUID) (*entity.Pelanggan, error)
-	UpdatePelanggan(ctx context.Context, barang *entity.Pelanggan) error
+	UpdatePelanggan(ctx context.Context, pelanggan *entity.Pelanggan) error
 	DeletePelanggan(ctx context.Context, ID uuid.UUID) error
 }
 

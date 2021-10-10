@@ -62,7 +62,7 @@ func (repo *SupplierRepository) UpdateSupplier(ctx context.Context, ent *entity.
 	if err := repo.db.
 		WithContext(ctx).
 		Model(&entity.Supplier{ID: ent.ID}).
-		Select("name", "kode", "description", "quantity", "price").
+		Select("nama_supplier", "telepon", "alamat").
 		Updates(ent).Error; err != nil {
 		return errors.Wrap(err, "[SupplierRepository-Update]")
 	}

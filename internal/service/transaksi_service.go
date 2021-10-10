@@ -16,12 +16,12 @@ var (
 // TransaksiService responsible for any flow related to transaksi.
 // It also implements TransaksiService.
 type TransaksiService struct {
-	TransaksiRepo TransaksiRepository
+	transaksiRepo TransaksiRepository
 }
 
-func NewTransaksiService(TransaksiRepo TransaksiRepository) *TransaksiService {
+func NewTransaksiService(transaksiRepo TransaksiRepository) *TransaksiService {
 	return &TransaksiService{
-		TransaksiRepo: TransaksiRepo,
+		transaksiRepo: transaksiRepo,
 	}
 }
 
@@ -29,7 +29,7 @@ type TransaksiUseCase interface {
 	Create(ctx context.Context, transaksi *entity.Transaksi) error
 	GetListTransaksi(ctx context.Context, limit, offset string) ([]*entity.Transaksi, error)
 	GetDetailTransaksi(ctx context.Context, ID uuid.UUID) (*entity.Transaksi, error)
-	UpdateTransaksi(ctx context.Context, barang *entity.Transaksi) error
+	UpdateTransaksi(ctx context.Context, transaksi *entity.Transaksi) error
 	DeleteTransaksi(ctx context.Context, ID uuid.UUID) error
 }
 
@@ -37,7 +37,7 @@ type TransaksiRepository interface {
 	Insert(ctx context.Context, transaksi *entity.Transaksi) error
 	GetListTransaksi(ctx context.Context, limit, offset string) ([]*entity.Transaksi, error)
 	GetDetailTransaksi(ctx context.Context, ID uuid.UUID) (*entity.Transaksi, error)
-	UpdateTransaksi(ctx context.Context, barang *entity.Transaksi) error
+	UpdateTransaksi(ctx context.Context, transaksi *entity.Transaksi) error
 	DeleteTransaksi(ctx context.Context, ID uuid.UUID) error
 }
 
@@ -52,14 +52,14 @@ func (svc TransaksiService) Create(ctx context.Context, transaksi *entity.Transa
 		transaksi.ID = uuid.New()
 	}
 
-	if err := svc.TransaksiRepo.Insert(ctx, transaksi); err != nil {
+	if err := svc.transaksiRepo.Insert(ctx, transaksi); err != nil {
 		return errors.Wrap(err, "[TransaksiService-Create]")
 	}
 	return nil
 }
 
 func (svc TransaksiService) GetListTransaksi(ctx context.Context, limit, offset string) ([]*entity.Transaksi, error) {
-	transaksi, err := svc.TransaksiRepo.GetListTransaksi(ctx, limit, offset)
+	transaksi, err := svc.transaksiRepo.GetListTransaksi(ctx, limit, offset)
 	if err != nil {
 		return nil, errors.Wrap(err, "[TransaksiService-Create]")
 	}
@@ -67,7 +67,7 @@ func (svc TransaksiService) GetListTransaksi(ctx context.Context, limit, offset 
 }
 
 func (svc TransaksiService) GetDetailTransaksi(ctx context.Context, ID uuid.UUID) (*entity.Transaksi, error) {
-	transaksi, err := svc.TransaksiRepo.GetDetailTransaksi(ctx, ID)
+	transaksi, err := svc.transaksiRepo.GetDetailTransaksi(ctx, ID)
 	if err != nil {
 		return nil, errors.Wrap(err, "[TransaksiService-Create]")
 	}
@@ -85,14 +85,14 @@ func (svc TransaksiService) UpdateTransaksi(ctx context.Context, transaksi *enti
 		transaksi.ID = uuid.New()
 	}
 
-	if err := svc.TransaksiRepo.UpdateTransaksi(ctx, transaksi); err != nil {
+	if err := svc.transaksiRepo.UpdateTransaksi(ctx, transaksi); err != nil {
 		return errors.Wrap(err, "[TransaksiService-Create]")
 	}
 	return nil
 }
 
 func (svc TransaksiService) DeleteTransaksi(ctx context.Context, ID uuid.UUID) error {
-	err := svc.TransaksiRepo.DeleteTransaksi(ctx, ID)
+	err := svc.transaksiRepo.DeleteTransaksi(ctx, ID)
 	if err != nil {
 		return errors.Wrap(err, "[TransaksiService-Create]")
 	}

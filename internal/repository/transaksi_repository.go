@@ -62,7 +62,7 @@ func (repo *TransaksiRepository) UpdateTransaksi(ctx context.Context, ent *entit
 	if err := repo.db.
 		WithContext(ctx).
 		Model(&entity.Transaksi{ID: ent.ID}).
-		Select("name", "kode", "description", "quantity", "price").
+		Select("tanggal", "keterangan", "total").
 		Updates(ent).Error; err != nil {
 		return errors.Wrap(err, "[TransaksiRepository-Update]")
 	}

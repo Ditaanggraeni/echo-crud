@@ -16,12 +16,12 @@ var (
 // SupplierService responsible for any flow related to supplier.
 // It also implements SupplierService.
 type SupplierService struct {
-	SupplierRepo SupplierRepository
+	supplierRepo SupplierRepository
 }
 
-func NewSupplierService(SupplierRepo SupplierRepository) *SupplierService {
+func NewSupplierService(supplierRepo SupplierRepository) *SupplierService {
 	return &SupplierService{
-		SupplierRepo: SupplierRepo,
+		supplierRepo: supplierRepo,
 	}
 }
 
@@ -52,14 +52,14 @@ func (svc SupplierService) Create(ctx context.Context, supplier *entity.Supplier
 		supplier.ID = uuid.New()
 	}
 
-	if err := svc.SupplierRepo.Insert(ctx, supplier); err != nil {
+	if err := svc.supplierRepo.Insert(ctx, supplier); err != nil {
 		return errors.Wrap(err, "[SupplierService-Create]")
 	}
 	return nil
 }
 
 func (svc SupplierService) GetListSupplier(ctx context.Context, limit, offset string) ([]*entity.Supplier, error) {
-	supplier, err := svc.SupplierRepo.GetListSupplier(ctx, limit, offset)
+	supplier, err := svc.supplierRepo.GetListSupplier(ctx, limit, offset)
 	if err != nil {
 		return nil, errors.Wrap(err, "[SupplierService-Create]")
 	}
@@ -67,7 +67,7 @@ func (svc SupplierService) GetListSupplier(ctx context.Context, limit, offset st
 }
 
 func (svc SupplierService) GetDetailSupplier(ctx context.Context, ID uuid.UUID) (*entity.Supplier, error) {
-	supplier, err := svc.SupplierRepo.GetDetailSupplier(ctx, ID)
+	supplier, err := svc.supplierRepo.GetDetailSupplier(ctx, ID)
 	if err != nil {
 		return nil, errors.Wrap(err, "[SupplierService-Create]")
 	}
@@ -85,14 +85,14 @@ func (svc SupplierService) UpdateSupplier(ctx context.Context, supplier *entity.
 		supplier.ID = uuid.New()
 	}
 
-	if err := svc.SupplierRepo.UpdateSupplier(ctx, supplier); err != nil {
+	if err := svc.supplierRepo.UpdateSupplier(ctx, supplier); err != nil {
 		return errors.Wrap(err, "[SupplierService-Create]")
 	}
 	return nil
 }
 
 func (svc SupplierService) DeleteSupplier(ctx context.Context, ID uuid.UUID) error {
-	err := svc.SupplierRepo.DeleteSupplier(ctx, ID)
+	err := svc.supplierRepo.DeleteSupplier(ctx, ID)
 	if err != nil {
 		return errors.Wrap(err, "[SupplierService-Create]")
 	}
