@@ -23,6 +23,7 @@ type TransaksiRowResponse struct {
 	Tanggal    string    `json:"tanggal"`
 	Keterangan string    `json:"keterangan"`
 	Total      int64     `json:"total"`
+	//PelangganID uuid.UUID `json:"pelanggan_id"`
 }
 
 // TransaksiResponse defines all attributes needed to fulfill for pic transaksi entity.
@@ -31,6 +32,7 @@ type TransaksiDetailResponse struct {
 	Tanggal    string    `json:"tanggal"`
 	Keterangan string    `json:"keterangan"`
 	Total      int64     `json:"total"`
+	//PelangganID uuid.UUID `json:"pelanggan_id"`
 }
 
 func buildTransaksiRowResponse(transaksi *entity.Transaksi) TransaksiRowResponse {
@@ -39,6 +41,7 @@ func buildTransaksiRowResponse(transaksi *entity.Transaksi) TransaksiRowResponse
 		Tanggal:    transaksi.Tanggal,
 		Keterangan: transaksi.Keterangan,
 		Total:      transaksi.Total,
+		//PelangganID: transaksi.PelangganID,
 	}
 
 	return form
@@ -50,6 +53,7 @@ func buildTransaksiDetailResponse(transaksi *entity.Transaksi) TransaksiDetailRe
 		Tanggal:    transaksi.Tanggal,
 		Keterangan: transaksi.Keterangan,
 		Total:      transaksi.Total,
+		//PelangganID: transaksi.PelangganID,
 	}
 
 	return form
@@ -65,20 +69,20 @@ type QueryParamsTransaksi struct {
 }
 
 // MetaTransaksi define attributes needed for Meta
-type MetaTransaksi struct {
-	Limit  int   `json:"limit"`
-	Offset int   `json:"offset"`
-	Total  int64 `json:"total"`
-}
+// type MetaTransaksi struct {
+// 	Limit  int   `json:"limit"`
+// 	Offset int   `json:"offset"`
+// 	Total  int64 `json:"total"`
+// }
 
-// NewMetaTransaksi creates an instance of Meta response.
-func NewMetaTransaksi(limit, offset int, total int64) *MetaTransaksi {
-	return &MetaTransaksi{
-		Limit:  limit,
-		Offset: offset,
-		Total:  total,
-	}
-}
+// // NewMetaTransaksi creates an instance of Meta response.
+// func NewMetaTransaksi(limit, offset int, total int64) *MetaTransaksi {
+// 	return &MetaTransaksi{
+// 		Limit:  limit,
+// 		Offset: offset,
+// 		Total:  total,
+// 	}
+// }
 
 // TransaksiHandler handles HTTP request related to user flow.
 type TransaksiHandler struct {
@@ -96,6 +100,7 @@ func NewTransaksiHandler(service service.TransaksiUseCase) *TransaksiHandler {
 // It will reject the request if the request doesn't have required data,
 func (handler *TransaksiHandler) CreateTransaksi(echoCtx echo.Context) error {
 	var form CreateTransaksiBodyRequest
+
 	if err := echoCtx.Bind(&form); err != nil {
 		errorResponse := buildErrorResponse(err, entity.ErrInvalidInput)
 		return echoCtx.JSON(nethttp.StatusBadRequest, errorResponse)
@@ -105,7 +110,7 @@ func (handler *TransaksiHandler) CreateTransaksi(echoCtx echo.Context) error {
 		uuid.Nil,
 		form.Tanggal,
 		form.Keterangan,
-		form.Total,
+		int64(form.Total),
 	)
 
 	if err := handler.service.Create(echoCtx.Request().Context(), transaksiEntity); err != nil {

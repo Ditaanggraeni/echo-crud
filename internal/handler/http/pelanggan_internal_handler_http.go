@@ -187,8 +187,9 @@ func (handler *PelangganHandler) UpdatePelanggan(echoCtx echo.Context) error {
 	pelangganEntity := &entity.Pelanggan{
 		id,
 		form.NamaPelanggan,
-		form.Alamat,
 		form.Telepon,
+		form.Alamat,
+		
 	}
 
 	if err := handler.service.UpdatePelanggan(echoCtx.Request().Context(), pelangganEntity); err != nil {

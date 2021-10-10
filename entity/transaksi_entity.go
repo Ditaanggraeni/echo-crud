@@ -9,7 +9,7 @@ const (
 //TransaksiModel is a model for entity.Transaksi
 type Transaksi struct {
 	ID         uuid.UUID `gorm:"type:uuid;primary_key" json:"id_transaksi"`
-	Tanggal    string    `gorm:"type:text;null" json:"tanggal"`
+	Tanggal    string    `gorm:"type:date;null" json:"tanggal"`
 	Keterangan string    `gorm:"type:text;null" json:"keterangan"`
 	Total      int64     `gorm:"type:int;null" json:"total"`
 	// PelangganID uuid.UUID `sql:"type:uuid REFERENCES pelanggan(id)"`
@@ -22,8 +22,7 @@ func NewTransaksi(id_transaksi uuid.UUID, tanggal, keterangan string, total int6
 		ID:         id_transaksi,
 		Tanggal:    tanggal,
 		Keterangan: keterangan,
-		Total:      total,
-		// PelangganID: pelanggan_id,
+		Total:       int64(total),
 		//Auditable:  NewAuditable(),
 	}
 }
