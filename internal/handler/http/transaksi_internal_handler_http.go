@@ -194,7 +194,10 @@ func (handler *TransaksiHandler) UpdateTransaksi(echoCtx echo.Context) error {
 		form.Tanggal,
 		form.Keterangan,
 		form.Total,
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5ffc6d631a4b0857a09ce62e630274bab891804f
 	}
 
 	if err := handler.service.UpdateTransaksi(echoCtx.Request().Context(), transaksiEntity); err != nil {
