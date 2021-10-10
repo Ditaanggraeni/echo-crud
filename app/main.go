@@ -42,8 +42,10 @@ func main() {
 	transaksiHandler := buildTransaksiHandler(db)
 	pelangganHandler := buildPelangganHandler(db)
 	produkHandler := buildProdukHandler(db)
+	pembayaranHandler := buildPembayaranHandler(db)
+	detailTransaksiHandler := buildDetailTransaksiHandler(db)
 
-	engine := http.NewGinEngine(supplierHandler, transaksiHandler, pelangganHandler, produkHandler, cfg.InternalConfig.Username, cfg.InternalConfig.Password)
+	engine := http.NewGinEngine(supplierHandler, transaksiHandler, pelangganHandler, produkHandler, pembayaranHandler, detailTransaksiHandler, cfg.InternalConfig.Username, cfg.InternalConfig.Password)
 
 	server := &nethttp.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.Port),
@@ -124,8 +126,20 @@ func buildPelangganHandler(db *gorm.DB) *http.PelangganHandler {
 	return http.NewPelangganHandler(pelangganService)
 }
 
-func buildProsukHandler(db *gorm.DB) *http.ProsukHandler {
-	repo := repository.NewProsukRepository(db)
-	prosukService := service.NewProsukService(repo)
-	return http.NewProsukHandler(prosukService)
+func buildProdukHandler(db *gorm.DB) *http.ProdukHandler {
+	repo := repository.NewProdukRepository(db)
+	produkService := service.NewProdukService(repo)
+	return http.NewProdukHandler(produkService)
+}
+
+func buildPembayaranHandler(db *gorm.DB) *http.PembayaranHandler {
+	repo := repository.NewPembayaranRepository(db)
+	pembayaranService := service.NewPembayaranService(repo)
+	return http.NewPembayaranHandler(pembayaranService)
+}
+
+func buildDetailTransaksiHandler(db *gorm.DB) *http.DetailTransaksiHandler {
+	repo := repository.NewDetailTransaksiRepository(db)
+	detailTransaksiService := service.NewDetailTransaksiService(repo)
+	return http.NewDetailTransaksiHandler(detailTransaksiService)
 }

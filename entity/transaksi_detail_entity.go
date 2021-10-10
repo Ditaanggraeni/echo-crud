@@ -15,7 +15,7 @@ type TransaksiDetail struct {
 	//Auditable
 }
 
-func NewTransaksiDetail(id uuid.UUID, produk string, kuantitas, total int) *TransaksiDetail {
+func NewTransaksiDetail(id uuid.UUID, produk string, kuantitas, total int64) *TransaksiDetail {
 	return &TransaksiDetail{
 		ID:         id,
 		Produk: produk,

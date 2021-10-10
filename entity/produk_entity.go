@@ -18,7 +18,7 @@ type Produk struct {
 	//Auditable
 }
 
-func NewProduk(id uuid.UUID, kode_produk, nama_produk string, harga, stok int) *Produk {
+func NewProduk(id uuid.UUID, kode_produk, nama_produk string, harga int, stok int64) *Produk {
 	return &Produk{
 		Id:          id,
 		KodeProduk:  kode_produk,

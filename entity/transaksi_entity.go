@@ -9,7 +9,7 @@ const (
 //TransaksiModel is a model for entity.Transaksi
 type Transaksi struct {
 	ID         uuid.UUID `gorm:"type:uuid;primary_key" json:"id_transaksi"`
-	Tanggal    string    `gorm:"type:text;null" json:"tanggal"`
+	Tanggal    string    `gorm:"type:date;null" json:"tanggal"`
 	Keterangan string    `gorm:"type:text;null" json:"keterangan"`
 	Total      int64     `gorm:"type:int;null" json:"total"`
 	// PelangganID uuid.UUID `sql:"type:uuid REFERENCES pelanggan(id)"`
