@@ -6,12 +6,16 @@ import (
 
 // NewGinEngine creates an instance of echo.Engine.
 // gin.Engine already implements net/http.Handler interface.
-func NewGinEngine(supplierHandler *SupplierHandler, transaksiHandler *TransaksiHandler, pelangganHandler *PelangganHandler, produkHandler *ProdukHandler, pembayaranHandler *PembayaranHandler, detailTransaksiHandler *DetailTransaksiHandler, internalUsername, internalPassword string) *echo.Echo {
+func NewGinEngine(supplierHandler *SupplierHandler, transaksiHandler *TransaksiHandler, pelangganHandler *PelangganHandler, produkHandler *ProdukHandler, pembayaranHandler *PembayaranHandler, detailTransaksiHandler *DetailTransaksiHandler, userHandler *UserHandler, internalUsername, internalPassword string) *echo.Echo {
 	engine := echo.New()
 
 	engine.GET("/", Status)
 	// engine.GET("/healthz", Health)
 	// engine.GET("/version", Version)
+
+	h := &handler{}
+	engine.POST("/login", h.login)
+	engine.GET("/private", h.private, IsLoggedIn)
 
 	engine.POST("/create-supplier", supplierHandler.CreateSupplier)
 	engine.POST("/create-pelanggan", pelangganHandler.CreatePelanggan)
@@ -26,7 +30,6 @@ func NewGinEngine(supplierHandler *SupplierHandler, transaksiHandler *TransaksiH
 	engine.GET("/list-produk", produkHandler.GetListProduk)
 	engine.GET("/list-pembayaran", pembayaranHandler.GetListPembayaran)
 	engine.GET("/list-transaksi_detail", detailTransaksiHandler.GetListTransaksi_Detail)
-	
 
 	engine.GET("/get-supplier/:id", supplierHandler.GetDetailSupplier)
 	engine.GET("/get-pelanggan/:id", pelangganHandler.GetDetailPelanggan)
